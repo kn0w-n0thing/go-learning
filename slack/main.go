@@ -23,13 +23,13 @@ func main() {
 
 	//message.StartSocketModeHandler(appToken, botToken)
 
-	blockOptions := message.BuildLeaveRequestMessageOptions()
+	blocks := message.BuildLeaveRequestBlock()
 	api := slack.New(botToken)
 	channelID, timestamp, err := api.PostMessage(
 		id,
 		slack.MsgOptionText("Some text", false),
 		slack.MsgOptionAsUser(false), // Add this if you want that the bot would post message as a user, otherwise it will send response using the default slackbot
-		blockOptions,
+		slack.MsgOptionBlocks(blocks...),
 	)
 	if err != nil {
 		log.Fatal(err)

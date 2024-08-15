@@ -1,12 +1,10 @@
 package message
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/slack-go/slack"
 )
 
-func BuildLeaveRequestMessageOptions() slack.MsgOption {
+func BuildLeaveRequestBlock() []slack.Block {
 	// Header Section
 	headerText := slack.NewTextBlockObject("mrkdwn", "*Leave request*", false, false)
 	headerSection := slack.NewSectionBlock(headerText, nil, nil)
@@ -50,27 +48,11 @@ func BuildLeaveRequestMessageOptions() slack.MsgOption {
 
 	actionBlock := slack.NewActionBlock("", approveButton, rejectButton)
 
-	// Build Message with blocks created above
-
-	msg := slack.NewBlockMessage(
+	return []slack.Block{
 		headerSection,
 		personalInfoSection,
 		leaveInfoSection,
 		reasonSection,
 		actionBlock,
-	)
-
-	b, err := json.MarshalIndent(msg, "", "    ")
-	if err != nil {
-		fmt.Println(err)
 	}
-
-	fmt.Println(string(b))
-	return slack.MsgOptionBlocks(
-		headerSection,
-		personalInfoSection,
-		leaveInfoSection,
-		reasonSection,
-		actionBlock,
-	)
 }
