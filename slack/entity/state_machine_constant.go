@@ -13,6 +13,7 @@ const (
 	NodeStatusApproved NodeStatus = iota
 	NodeStatusRejected
 	NodeStatusWaiting
+	NodeStatusNotStart
 )
 
 type StateMachineStatus int
