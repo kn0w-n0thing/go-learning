@@ -5,7 +5,14 @@ import (
 	"test_wire/foo"
 )
 
+func provideMyFoo() *foo.MyFoo {
+	b := new(foo.MyFoo)
+	*b = "Hello, World!"
+	return b
+}
+
 func main() {
-	b := foo.InitializeBar()
+	myFoo := provideMyFoo()
+	b := foo.InitializeBar(myFoo)
 	fmt.Println(b.Run())
 }

@@ -6,26 +6,9 @@
 
 package foo
 
-import (
-	"github.com/google/wire"
-)
-
 // Injectors from wire.go:
 
-func InitializeBar() *MyBar {
-	myFoo := provideMyFoo()
-	myBar := NewBar(myFoo)
+func InitializeBar(foo Foo) *MyBar {
+	myBar := NewBar(foo)
 	return myBar
 }
-
-// wire.go:
-
-func provideMyFoo() *MyFoo {
-	b := new(MyFoo)
-	*b = "Hello, World!"
-	return b
-}
-
-var Set = wire.NewSet(wire.Bind(new(Foo), new(*MyFoo)), provideMyFoo,
-	NewBar,
-)
